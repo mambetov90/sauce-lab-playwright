@@ -32,13 +32,13 @@ test("Purchase Sauce T-Shirt", async ({
   await shoppingBasketPage.verifyBasketContent({
     name: inventoryPageShirtName,
     price: inventoryPageShirtPrice,
-    count: productInfoPageShirtCount,
+    count: 1,
   });
 
   await shoppingBasketPage.verifyBasketContent({
     name: productInfoPageShirtName,
     price: productInfoPageShirtPrice,
-    count: 1,
+    count: productInfoPageShirtCount,
   });
 
   await shoppingBasketPage.goToCheckout();
