@@ -1,5 +1,4 @@
 import { expect, test as baseTest } from "@playwright/test";
-import { LoginPage } from "../../tests/pages/loginPage";
 import { InventoryPage } from "../../tests/pages/inventoryPage";
 import { ShoppingBasketPage } from "../../tests/pages/shoppingBasketPage";
 import { CheckoutInformationPage } from "../../tests/pages/checkoutInformationPage";
@@ -8,7 +7,6 @@ import { CheckoutCompletePage } from "../../tests/pages/checkoutCompletePage";
 import { InventoryProductInfoPage } from "../../tests/pages/inventoryProductInfoPage";
 
 type BaseFixtures = {
-  loginPage: LoginPage;
   inventoryPage: InventoryPage;
   shoppingBasketPage: ShoppingBasketPage;
   checkoutInformationPage: CheckoutInformationPage;

@@ -10,6 +10,8 @@ test("Purchase Sauce T-Shirt", async ({
   checkoutOverviewPage,
   checkoutCompletePage,
 }) => {
+  await loginPage.navigateTo("inventory.html");
+
   await inventoryPage.addProductToCart(testData.inventory.productName);
 
   const inventoryPageShirtName = await inventoryPage.getSelectedShirtText();
