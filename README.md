@@ -84,6 +84,21 @@ Before running the tests, ensure the following:
 
    npx playwright show-report
 
+6. **Install Allure Reporter**
+   npm install --save-dev @playwright/test allure-playwright
+
+   ## install Allure CLI globally
+
+   npm install -g allure-commandline
+
+   ## generate Allure Report in allure results dir and create an output in allure-report dir
+
+   allure generate allure-results -o allure-report --clean
+
+   ## open Allure Report
+
+   allure open allure-report
+
    ## Technologies Used
 
    - Playwright: End-to-end testing framework.
