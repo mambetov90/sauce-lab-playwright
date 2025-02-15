@@ -10,7 +10,7 @@ test("Purchase Sauce T-Shirt", async ({
   checkoutOverviewPage,
   checkoutCompletePage,
 }) => {
-  await loginPage.navigateTo("inventory.html");
+  await loginPage.navigateTo("/inventory.html");
 
   await inventoryPage.addProductToCart(testData.inventory.productName);
 
