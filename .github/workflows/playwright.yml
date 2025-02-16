@@ -48,7 +48,7 @@ jobs:
 
       # Step 7: Run Playwright E2E Tests (Ensure Allure results are generated)
       - name: Run Playwright E2E Tests
-        run: npx playwright test --reporter=line,allure
+        run: npx playwright test --reporter=line,allure-playwright
 
       # Step 8: Generate Allure report
       - name: Generate Allure Report
