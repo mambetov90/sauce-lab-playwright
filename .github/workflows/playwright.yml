@@ -1,51 +1,64 @@
 name: Playwright Tests
 
 on:
-  workflow_dispatch: # Allows manual execution of the pipeline
+  workflow_dispatch: # Allows manual execution
   push:
     branches: [main, master]
   pull_request:
-    branches: [main, master] # Trigger when a pull request is opened/updated with the target branch as main or master
+    branches: [main, master] # Trigger when a PR is opened/updated with target branch
 
 jobs:
   sauce-demo-e2e:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Display credentials for confirmation
+      # Step 1: Confirm credentials
       - name: Confirm credentials
         id: credentials
         run: |
-          echo "PASSWORD is being used, length: ${{ secrets.PASSWORD }}"
-          echo "Credentials are stored securely in GitHub secrets."
+          echo "Using credentials stored securely in GitHub secrets."
 
-      # Step 2: Checkout repository code
+      # Step 2: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 3: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
+      # Step 4: Set environment variables
       - name: Set environment variables
         run: |
           echo "URL=${{ secrets.URL }}" >> $GITHUB_ENV
           echo "USER_NAME=${{ secrets.USER_NAME }}" >> $GITHUB_ENV
           echo "PASSWORD=${{ secrets.PASSWORD }}" >> $GITHUB_ENV
 
+      # Step 5: Install dependencies and Playwright
       - name: Install dependencies
         run: |
           npm install
-          # Install Playwright browser binaries
           npx playwright install chromium
 
-      - name: Run Playwright E2E Tests
-        run: npm run test:e2e
+      # Step 6: Install Allure
+      - name: Install Allure
+        run: |
+          npm install -g allure-commandline --save-dev
 
-      - name: Upload Playwright Report
+      # Step 7: Run Playwright E2E Tests (Ensure Allure results are generated)
+      - name: Run Playwright E2E Tests
+        run: npx playwright test --reporter=line,allure
+
+      # Step 8: Generate Allure report
+      - name: Generate Allure Report
+        run: |
+          npx allure generate allure-results -o allure-report --clean
+
+      # Step 9: Upload Allure report as an artifact
+      - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: allure-report
+          path: allure-report/
           retention-days: 30

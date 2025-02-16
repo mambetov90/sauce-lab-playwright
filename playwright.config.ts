@@ -22,7 +22,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [["line"], ["allure-playwright"]],
+  reporter: [["line"], ["allure-playwright", { resultsDir: "allure-results" }]],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -44,12 +44,12 @@ export default defineConfig({
       testMatch: "global-setup.ts",
     },
     {
-      name: "chromium",
+      name: "sauce",
       dependencies: ["setup"],
       use: {
         ...devices["Desktop Chrome"],
         storageState: "./LoginAuth.json",
-        viewport: { width: 1024, height: 980 },
+        viewport: { width: 1920, height: 1080 },
       },
     },
   ],
